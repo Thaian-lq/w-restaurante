@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #14120f;
+  --ink: #ece3d2;
+  --moss: #445a43;
+  --moss-light: #5c7a5a;
+  --ember: #9c5330;
+  --stone: #6b665c;
+  --gold: #b08d57;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: auto;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  overflow-x: hidden;
+  font-feature-settings: "ss01" on, "liga" on;
+}
+
+::selection {
+  background: var(--moss);
+  color: var(--ink);
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--stone);
+  border-radius: 0;
+}
+
+/* film grain — extremely subtle, static, no perf cost */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(236, 227, 210, 0.18),
+    transparent
+  );
+}
+
+/* vine line-art: reveal via stroke-dashoffset, driven by scroll progress var */
+.vine-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  pathLength: 1;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* focus visibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
